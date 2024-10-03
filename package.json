@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Projeto para resoluçao da atividade de back-end com o felipinho dev",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/server.js"
