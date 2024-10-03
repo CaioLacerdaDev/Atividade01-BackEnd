@@ -1,49 +1,61 @@
 import { Router } from "express"
-const filmesRoutes = Router();
+const planetasRoutes = Router();
 
-let filmesMarcantes = [
+let planetas = [
     {
-    id:Number(Math.floor(Math.random()*100)+ 1),
-    title:"Carandiru",
-    genero:"Açao",
-    emCartaz: false,
+    id:Number(Math.floor(Math.random()*1000000)+ 1),
+    nome:"Carandiru",
+    temperatura: 13.9,
+    agua: false, // Indicaçao de existencia de agua]
+    atm: [
+        "JS",
+        "node",
+        "code",
+    ]
     },
     {
     id:Number(Math.floor(Math.random()*100)+ 1),
-    title:"Bilbil e o seu braçal",
-    genero:"Açao",
-    emCartaz: false,
+    nome:"Bilbil e o seu braçal",
+    temperatura: 13,
+    agua: false,
+    atm: [
+        "JS",
+        "node",
+        "codiguinho"]
     },
     {
     id:Number(Math.floor(Math.random()*100)+ 1),
-    title:"O mascara",
-    genero:"Comédia",
-    emCartaz: true,
+    nome:"cadu",
+    temperatura:13.4,
+    agua: true,
+    atm: [
+        "pesca",
+        "souzas🐵",
+        "free fire"]
     }
 ]
 
 
-filmesRoutes.get("/", (req, res) => {
-    return res.status(200).send(filmesMarcantes);
+planetasRoutes.get("/", (req, res) => {
+    return res.status(200).send(planetas);
     });
-        c
-filmesRoutes.post("/", (req, res) => {
-const { titulo, genero, emCartaz } = req.body;
+planetasRoutes.post("/", (req, res) => {
+const { nome, temperatura, agua } = req.body;
         
 const novoFilme = {
     id: Number(Math.floor(Math.random()*100)+ 1),
-    titulo,
-    genero,
-    emCartaz,
+    nome,
+    temperatura,
+    agua,
     };
         
-filmesMarcantes.push(novoFilme);
-    return res.status(201).send(filmesMarcantes);
+planetas.push(novoFilme);
+    return res.status(201).send(planetas);
 });
 
-filmesRoutes.get("/:id",(req, res) => {
+planetasRoutes.get("/:id",(req, res) => {
     const { id } = req.params
-    const filme = filmesMarcantes.find ((movie) => movie.id === Number(id))
+    const filme = planetas.find ((movie) => movie.id === Number(id))
 
     if (!filme) {
         return res.status(404).send({message: "Filme nao encontrado"})
@@ -53,19 +65,19 @@ filmesRoutes.get("/:id",(req, res) => {
 })
 
 
-filmesRoutes.put("/:id",(req,res) => {
+planetasRoutes.put("/:id",(req,res) => {
     const {id} = req.params
 
-    const filme = filmesMarcantes.find ((movie) => movie.id === Number(id))
+    const filme = planetas.find ((movie) => movie.id === Number(id))
     if (!filme) {
         return res.status(404).send({message: "Filme nao encontrado"})
     }
 
-    const {titulo, genero, emCartaz} = req.body
+    const {nome, temperatura, agua} = req.body
 
-    filme.titulo = titulo;
-    filme.genero = genero;
-    filme.emCartaz = emCartaz;
+    filme.nome = nome;
+    filme.temperatura = temperatura;
+    filme.agua = agua;
 
     return res.status (200).send({
         message:"filme Atualizado",
@@ -73,17 +85,17 @@ filmesRoutes.put("/:id",(req,res) => {
     })
 })
 
-filmesRoutes.delete ("/:id", (req,res) => {
+planetasRoutes.delete ("/:id", (req,res) => {
     const {id} = req.params
-    const filme = filmesMarcantes.find ((movie) => movie.id === Number(id))
+    const filme = planetas.find ((movie) => movie.id === Number(id))
     if (!filme) {
         return res.status(404).send({message: "Filme nao encontrado"})
     }
-    filmesMarcantes = filmesMarcantes.filter((movie) => movie.id !==Number(id))
+    planetas = planetas.filter((movie) => movie.id !==Number(id))
     return res.status (200).send({
         message:"Filme Deletado",
         filme,
     })
 })
 
-export default filmesRoutes 
+export default planetasRoutes 
